@@ -1,3 +1,4 @@
+// backend/src/routes/admin.routes.js
 import express from 'express';
 import { authenticate, authorize } from '../middleware/auth.js';
 import {
