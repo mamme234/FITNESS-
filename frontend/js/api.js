@@ -16,23 +16,29 @@ async function apiCall(endpoint, options = {}) {
         headers['Authorization'] = `Bearer ${authToken}`;
     }
 
-    const response = await fetch(url, {
-        ...options,
-        headers
-    });
+    try {
+        const response = await fetch(url, {
+            ...options,
+            headers
+        });
 
-    const data = await response.json();
-    
-    if (!response.ok) {
-        if (response.status === 401) {
-            // Token expired
-            localStorage.removeItem('token');
-            window.location.reload();
+        const data = await response.json();
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                authToken = null;
+                window.location.reload();
+            }
+            throw new Error(data.error || 'API Error');
         }
-        throw new Error(data.error || 'API Error');
-    }
 
-    return data;
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
 }
 
 // Auth APIs
@@ -76,7 +82,7 @@ async function getExercises() {
     return apiCall('/exercises');
 }
 
-async function searchExercises(query) {
+async function searchExercisesApi(query) {
     return apiCall(`/exercises/search?q=${encodeURIComponent(query)}`);
 }
 
