@@ -13,19 +13,10 @@ import progressRoutes from './src/routes/progress.routes.js';
 import nutritionRoutes from './src/routes/nutrition.routes.js';
 import challengeRoutes from './src/routes/challenge.routes.js';
 import communityRoutes from './src/routes/community.routes.js';
-import analyticsRoutes from './src/routes/analytics.routes.js';
-import adminRoutes from './src/routes/admin.routes.js';
 
 // Import Middleware
 import { errorHandler } from './src/middleware/errorHandler.js';
 import { rateLimiter } from './src/middleware/rateLimiter.js';
-
-// Import Services
-import './src/services/email.service.js';
-import './src/services/notification.service.js';
-import './src/services/ai.service.js';
-import './src/services/workout.service.js';
-import './src/services/progress.service.js';
 
 dotenv.config();
 
@@ -42,7 +33,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -79,9 +70,7 @@ app.get('/', (req, res) => {
       progress: '/api/v1/progress',
       nutrition: '/api/v1/nutrition',
       challenges: '/api/v1/challenges',
-      community: '/api/v1/community',
-      analytics: '/api/v1/analytics',
-      admin: '/api/v1/admin'
+      community: '/api/v1/community'
     },
     health: '/health'
   });
@@ -96,8 +85,6 @@ app.use('/api/v1/progress', progressRoutes);
 app.use('/api/v1/nutrition', nutritionRoutes);
 app.use('/api/v1/challenges', challengeRoutes);
 app.use('/api/v1/community', communityRoutes);
-app.use('/api/v1/analytics', analyticsRoutes);
-app.use('/api/v1/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -119,13 +106,6 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🔗 http://localhost:${PORT}`);
   console.log(`❤️  Health check: http://localhost:${PORT}/health`);
   console.log(`📚 API Base: http://localhost:${PORT}/api/v1`);
-  console.log('═══════════════════════════════════════');
-  console.log('✅ All services loaded successfully');
-  console.log('📧 Email service ready');
-  console.log('🔔 Notification service ready');
-  console.log('🤖 AI service ready');
-  console.log('💪 Workout service ready');
-  console.log('📊 Progress service ready');
   console.log('═══════════════════════════════════════');
 });
 
