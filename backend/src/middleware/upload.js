@@ -1,17 +1,5 @@
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
-
-// Ensure upload directories exist
-const uploadDir = 'uploads';
-const videoDir = 'uploads/videos';
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-if (!fs.existsSync(videoDir)) {
-  fs.mkdirSync(videoDir, { recursive: true });
-}
 
 // Configure storage
 const storage = multer.diskStorage({
