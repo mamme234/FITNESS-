@@ -143,3 +143,20 @@ function showToast(message, type = 'info') {
 // Add animation style
 const style = document.createElement('style');
 style.textContent = `
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+`;
+document.head.appendChild(style);
+
+// Check auth on load
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    
+    if (token && user) {
+        authToken = token;
+        showMainApp(user);
+    }
+});
