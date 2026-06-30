@@ -1,10 +1,7 @@
 {
-  "buildCommand": "npx expo export --platform web",
-  "outputDirectory": "dist",
+  "buildCommand": "echo 'No build needed'",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "env": {
-    "VITE_API_URL": "https://gym-apk-wicj.onrender.com"
-  }
+  ]
 }
