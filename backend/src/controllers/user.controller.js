@@ -1,6 +1,5 @@
 import User from '../models/User.js';
-import cloudinary from '../config/cloudinary.js';
-import fs from 'fs';
+// import cloudinary from '../config/cloudinary.js'; // COMMENTED OUT
 
 export const getProfile = async (req, res) => {
   try {
@@ -53,6 +52,8 @@ export const updateMeasurements = async (req, res) => {
   }
 };
 
+// COMMENTED OUT - Add later when cloudinary is fully configured
+/*
 export const uploadAvatar = async (req, res) => {
   try {
     if (!req.file) {
@@ -60,13 +61,6 @@ export const uploadAvatar = async (req, res) => {
     }
 
     const user = await User.findById(req.user._id);
-    
-    // Delete old avatar if exists and not default
-    if (user.avatar && user.avatar !== 'default-avatar.png') {
-      const publicId = user.avatar.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(`gym-app/${publicId}`);
-    }
-
     user.avatar = req.file.path;
     await user.save();
 
@@ -79,17 +73,11 @@ export const uploadAvatar = async (req, res) => {
     res.status(500).json({ error: 'Failed to upload avatar' });
   }
 };
+*/
 
 export const deleteAccount = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    
-    // Delete avatar from cloudinary
-    if (user.avatar && user.avatar !== 'default-avatar.png') {
-      const publicId = user.avatar.split('/').pop().split('.')[0];
-      await cloudinary.uploader.destroy(`gym-app/${publicId}`);
-    }
-
     await user.deleteOne();
     res.json({ message: 'Account deleted successfully' });
   } catch (error) {
