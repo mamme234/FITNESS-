@@ -109,15 +109,4 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('═══════════════════════════════════════');
 });
 
-// Graceful shutdown
-process.on('SIGINT', async () => {
-  console.log('\n🛑 Shutting down gracefully...');
-  process.exit(0);
-});
-
-process.on('SIGTERM', async () => {
-  console.log('\n🛑 Shutting down gracefully...');
-  process.exit(0);
-});
-
 export default app;
