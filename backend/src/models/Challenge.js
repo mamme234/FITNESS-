@@ -94,10 +94,25 @@ const challengeSchema = new mongoose.Schema({
   }
 });
 
-// Check if challenge is active
-challengeSchema.methods.isActive = function() {
+// REMOVED: The method was conflicting with the property
+// The method is now a virtual or static method instead
+
+// Use a virtual property instead of a method
+challengeSchema.virtual('isChallengeActive').get(function() {
   const now = new Date();
   return now >= this.startDate && now <= this.endDate && this.isActive;
+});
+
+// Or use a static method
+challengeSchema.statics.isChallengeActive = function(challenge) {
+  const now = new Date();
+  return now >= challenge.startDate && now <= challenge.endDate && challenge.isActive;
 };
+
+// Update timestamp
+challengeSchema.pre('findOneAndUpdate', function(next) {
+  this.set({ updatedAt: Date.now() });
+  next();
+});
 
 export default mongoose.model('Challenge', challengeSchema);
