@@ -44,12 +44,12 @@ const userSchema = new mongoose.Schema({
     max: 100
   },
   height: {
-    type: Number, // in cm
+    type: Number,
     min: 100,
     max: 300
   },
   weight: {
-    type: Number, // in kg
+    type: Number,
     min: 20,
     max: 300
   },
@@ -104,6 +104,18 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'coach', 'admin'],
     default: 'user'
   },
+  favorites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Exercise'
+  }],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   preferences: {
     workoutTime: String,
     restDays: [Number],
