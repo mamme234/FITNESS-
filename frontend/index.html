@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Pro - Fitness App</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Screen -->
+        <div id="authScreen" class="screen">
+            <div class="auth-container">
+                <div class="logo">
+                    <h1>🏋️ Gym Pro</h1>
+                    <p>Your Fitness Journey Starts Here</p>
+                </div>
+                
+                <div class="auth-form">
+                    <input type="email" id="loginEmail" placeholder="Email" />
+                    <input type="password" id="loginPassword" placeholder="Password" />
+                    <button onclick="handleLogin()">Login</button>
+                    <button class="secondary" onclick="showRegister()">Create Account</button>
+                </div>
+
+                <div class="auth-form hidden" id="registerForm">
+                    <input type="text" id="registerName" placeholder="Full Name" />
+                    <input type="email" id="registerEmail" placeholder="Email" />
+                    <input type="password" id="registerPassword" placeholder="Password" />
+                    <button onclick="handleRegister()">Register</button>
+                    <button class="secondary" onclick="showLogin()">Back to Login</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainScreen" class="screen hidden">
+            <!-- Header -->
+            <header>
+                <div class="header-left">
+                    <span class="greeting">Hello, <span id="userName">User</span> 👋</span>
+                </div>
+                <div class="header-right">
+                    <span id="userLevel">Level 1</span>
+                    <div class="avatar" id="userAvatar">👤</div>
+                </div>
+            </header>
+
+            <!-- Navigation -->
+            <nav class="tab-nav">
+                <button class="active" data-tab="home">🏠 Home</button>
+                <button data-tab="workouts">💪 Workouts</button>
+                <button data-tab="exercises">📋 Exercises</button>
+                <button data-tab="progress">📊 Progress</button>
+                <button data-tab="profile">👤 Profile</button>
+            </nav>
+
+            <!-- Tabs -->
+            <div class="tab-content">
+                <!-- HOME -->
+                <div id="tab-home" class="tab-panel active">
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <span class="stat-value" id="statStreak">0</span>
+                            <span class="stat-label">Day Streak</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="statLevel">1</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="statXp">0</span>
+                            <span class="stat-label">XP</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-value" id="statWorkouts">0</span>
+                            <span class="stat-label">Workouts</span>
+                        </div>
+                    </div>
+
+                    <div class="today-workout">
+                        <h3>Today's Workout</h3>
+                        <div id="todayWorkout">
+                            <p>No workout scheduled</p>
+                            <button onclick="loadTodayWorkout()">Refresh</button>
+                        </div>
+                    </div>
+
+                    <div class="quote-box">
+                        <p>"The only bad workout is the one that didn't happen."</p>
+                    </div>
+                </div>
+
+                <!-- WORKOUTS -->
+                <div id="tab-workouts" class="tab-panel hidden">
+                    <h2>💪 Workout Programs</h2>
+                    <div id="workoutList"></div>
+                </div>
+
+                <!-- EXERCISES -->
+                <div id="tab-exercises" class="tab-panel hidden">
+                    <h2>📋 Exercise Library</h2>
+                    <input type="text" id="exerciseSearch" placeholder="Search exercises..." oninput="searchExercises()" />
+                    <div id="exerciseList"></div>
+                </div>
+
+                <!-- PROGRESS -->
+                <div id="tab-progress" class="tab-panel hidden">
+                    <h2>📊 Your Progress</h2>
+                    <div id="progressStats"></div>
+                </div>
+
+                <!-- PROFILE -->
+                <div id="tab-profile" class="tab-panel hidden">
+                    <h2>👤 Profile</h2>
+                    <div id="profileInfo"></div>
+                    <button onclick="handleLogout()" class="danger">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+  </html>
