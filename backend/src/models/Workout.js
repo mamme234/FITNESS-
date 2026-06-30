@@ -1,64 +1,120 @@
 import mongoose from 'mongoose';
 
-const commentSchema = new mongoose.Schema({
-  userId: {
+const workoutExerciseSchema = new mongoose.Schema({
+  exerciseId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Exercise',
     required: true
   },
-  content: {
-    type: String,
+  sets: {
+    type: Number,
     required: true,
-    maxlength: 500
+    min: 1,
+    default: 3
   },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  }
+  reps: {
+    type: Number,
+    required: true,
+    min: 1
+  },
+  weight: {
+    type: Number,
+    default: 0
+  },
+  restTime: {
+    type: Number,
+    default: 60
+  },
+  tempo: String,
+  order: Number,
+  isCompleted: {
+    type: Boolean,
+    default: false
+  },
+  loggedSets: [{
+    setNumber: Number,
+    reps: Number,
+    weight: Number,
+    rpe: {
+      type: Number,
+      min: 1,
+      max: 10
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false
+    },
+    timestamp: Date
+  }]
 });
 
-const communityPostSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  content: {
+  name: {
     type: String,
-    required: true,
-    maxlength: 1000
+    required: true
   },
-  images: [String],
-  video: String,
+  description: String,
   type: {
     type: String,
-    enum: ['progress', 'achievement', 'workout', 'nutrition', 'motivation', 'question', 'tip'],
-    default: 'progress'
+    enum: ['strength', 'hypertrophy', 'endurance', 'power', 'conditioning'],
+    required: true
   },
-  workoutId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Workout'
+  category: {
+    type: String,
+    enum: ['push', 'pull', 'legs', 'upper', 'lower', 'full_body', 'cardio', 'hiit', 'stretching']
   },
-  challengeId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Challenge'
+  difficulty: {
+    type: String,
+    enum: ['beginner', 'intermediate', 'advanced'],
+    default: 'beginner'
   },
-  likes: [{
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    timestamp: {
-      type: Date,
-      default: Date.now
-    }
-  }],
-  comments: [commentSchema],
-  isPublic: {
+  duration: {
+    type: Number,
+    default: 45
+  },
+  daysPerWeek: {
+    type: Number,
+    min: 1,
+    max: 7
+  },
+  exercises: [workoutExerciseSchema],
+  isTemplate: {
     type: Boolean,
-    default: true
+    default: false
   },
-  tags: [String],
+  isScheduled: {
+    type: Boolean,
+    default: false
+  },
+  scheduledDays: [{
+    type: Number,
+    min: 0,
+    max: 6
+  }],
+  isCompleted: {
+    type: Boolean,
+    default: false
+  },
+  completedAt: Date,
+  totalVolume: {
+    type: Number,
+    default: 0
+  },
+  caloriesBurned: {
+    type: Number,
+    default: 0
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5
+  },
+  notes: String,
   createdAt: {
     type: Date,
     default: Date.now
@@ -69,4 +125,15 @@ const communityPostSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model('CommunityPost', communityPostSchema);
+workoutSchema.pre('save', function(next) {
+  if (this.exercises) {
+    this.totalVolume = this.exercises.reduce((total, exercise) => {
+      return total + (exercise.weight || 0) * (exercise.reps || 0) * (exercise.sets || 0);
+    }, 0);
+  }
+  this.updatedAt = Date.now();
+  next();
+});
+
+const Workout = mongoose.models.Workout || mongoose.model('Workout', workoutSchema);
+export default Workout;
