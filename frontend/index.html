@@ -5,109 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gym Pro - Fitness App</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
     <div id="app">
-
         <!-- ===== AUTH SCREEN ===== -->
         <div id="authScreen" class="screen">
-            <div class="auth-container">
-                <!-- Left Side - Branding -->
-                <div class="auth-brand">
-                    <div class="brand-icon">🏋️</div>
-                    <h1>Gym Pro</h1>
-                    <p>Transform your body,<br />transform your life</p>
-                    <div class="brand-features">
-                        <span>💪 300+ Exercises</span>
-                        <span>📊 Track Progress</span>
-                        <span>🤖 AI Coach</span>
-                    </div>
+            <div class="auth-wrapper">
+                <!-- Background Effects -->
+                <div class="bg-effects">
+                    <div class="orb orb-1"></div>
+                    <div class="orb orb-2"></div>
+                    <div class="orb orb-3"></div>
                 </div>
 
-                <!-- Right Side - Forms -->
-                <div class="auth-forms">
-                    <!-- Login Form -->
-                    <div id="loginForm" class="form-box active">
-                        <h2>Welcome Back!</h2>
-                        <p class="form-subtitle">Login to continue your fitness journey</p>
-                        
-                        <form onsubmit="handleLogin(event)">
-                            <div class="input-group">
-                                <input type="email" id="loginEmail" placeholder="Email" required />
+                <div class="auth-container">
+                    <!-- Left Branding -->
+                    <div class="auth-brand">
+                        <div class="brand-content">
+                            <div class="brand-icon">🏋️</div>
+                            <h1>Gym<span>Pro</span></h1>
+                            <p>Transform your body,<br />transform your life</p>
+                            <div class="brand-features">
+                                <div class="feature-item"><span>💪</span><span>300+ Exercises</span></div>
+                                <div class="feature-item"><span>📊</span><span>Track Progress</span></div>
+                                <div class="feature-item"><span>🤖</span><span>AI Coach</span></div>
                             </div>
-                            <div class="input-group">
-                                <input type="password" id="loginPassword" placeholder="Password" required />
+                            <div class="brand-stats">
+                                <div><span class="stat-number">10K+</span><span class="stat-label">Active Users</span></div>
+                                <div><span class="stat-number">500K+</span><span class="stat-label">Workouts Done</span></div>
                             </div>
-                            <div class="form-options">
-                                <label class="remember-me">
-                                    <input type="checkbox" /> Remember me
-                                </label>
-                                <a href="#" class="forgot-password">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="btn-primary">Login</button>
-                        </form>
-
-                        <div class="social-divider">
-                            <span>or login with</span>
                         </div>
-
-                        <div class="social-buttons">
-                            <button class="social-btn google" onclick="handleGoogleLogin()">
-                                <span>G</span>
-                            </button>
-                            <button class="social-btn facebook" onclick="handleFacebookLogin()">
-                                <span>f</span>
-                            </button>
-                            <button class="social-btn linkedin" onclick="handleLinkedinLogin()">
-                                <span>in</span>
-                            </button>
-                        </div>
-
-                        <p class="switch-auth">
-                            Don't have an account? 
-                            <a href="#" onclick="showRegister()">Register</a>
-                        </p>
                     </div>
 
-                    <!-- Register Form -->
-                    <div id="registerForm" class="form-box">
-                        <h2>Create Account</h2>
-                        <p class="form-subtitle">Start your fitness transformation today</p>
-                        
-                        <form onsubmit="handleRegister(event)">
-                            <div class="input-group">
-                                <input type="text" id="registerName" placeholder="Full Name" required />
+                    <!-- Right Forms -->
+                    <div class="auth-forms">
+                        <!-- Login Form -->
+                        <div id="loginForm" class="form-box">
+                            <div class="form-header">
+                                <h2>Welcome Back!</h2>
+                                <p>Login to continue your fitness journey</p>
                             </div>
-                            <div class="input-group">
-                                <input type="email" id="registerEmail" placeholder="Email" required />
-                            </div>
-                            <div class="input-group">
-                                <input type="password" id="registerPassword" placeholder="Password (min 6 chars)" required minlength="6" />
-                            </div>
-                            <button type="submit" class="btn-primary">Register</button>
-                        </form>
+                            
+                            <form id="loginFormElement" onsubmit="handleLogin(event)">
+                                <div class="input-group">
+                                    <label>Email</label>
+                                    <input type="email" id="loginEmail" placeholder="Enter your email" required />
+                                </div>
+                                <div class="input-group">
+                                    <label>Password</label>
+                                    <input type="password" id="loginPassword" placeholder="Enter your password" required />
+                                </div>
+                                <div class="form-options">
+                                    <label class="remember-me">
+                                        <input type="checkbox" checked /> Remember me
+                                    </label>
+                                    <a href="#" class="forgot-password" onclick="handleForgotPassword(); return false;">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="btn-primary" id="loginBtn">
+                                    <span>Login</span>
+                                </button>
+                            </form>
 
-                        <div class="social-divider">
-                            <span>or register with</span>
+                            <div class="social-divider"><span>or login with</span></div>
+
+                            <div class="social-buttons">
+                                <button class="social-btn google" onclick="handleGoogleLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#EA4335" d="M18.64 10.18c0-.65-.06-1.28-.18-1.9H10v3.61h4.92a4.3 4.3 0 0 1-1.86 2.82v2.34h3.01c1.76-1.62 2.77-4.01 2.77-6.87z"/><path fill="#4285F4" d="M10 19c2.5 0 4.6-.83 6.13-2.25l-3.01-2.34c-.82.55-1.86.88-3.12.88-2.4 0-4.43-1.62-5.16-3.8H1.8v2.42A9.18 9.18 0 0 0 10 19z"/><path fill="#FBBC05" d="M4.84 11.49a5.52 5.52 0 0 1 0-3.48V5.59H1.8a9.19 9.19 0 0 0 0 8.33l3.04-2.43z"/><path fill="#34A853" d="M10 4.18c1.36 0 2.58.47 3.54 1.39l2.66-2.66A9.16 9.16 0 0 0 10 1C6.5 1 3.44 3.05 1.8 5.59l3.04 2.42c.73-2.18 2.76-3.83 5.16-3.83z"/></svg>
+                                </button>
+                                <button class="social-btn facebook" onclick="handleFacebookLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#1877F2" d="M18 10.05C18 5.6 14.42 2 10 2S2 5.6 2 10.05c0 3.98 2.9 7.28 6.7 7.88v-5.57H7.05v-2.31h1.65V8.55c0-1.64.96-2.54 2.44-2.54.7 0 1.44.13 1.44.13v1.6h-.8c-.8 0-1.05.5-1.05 1.02v1.22h1.79l-.29 2.31h-1.5V17.9c3.8-.6 6.7-3.9 6.7-7.88z"/></svg>
+                                </button>
+                                <button class="social-btn twitter" onclick="handleTwitterLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#1DA1F2" d="M19.94 4.17a7.4 7.4 0 0 1-2.12.58 3.7 3.7 0 0 0 1.62-2.04 7.4 7.4 0 0 1-2.34.89A3.69 3.69 0 0 0 14.55 2c-2.04 0-3.7 1.66-3.7 3.7 0 .29.03.57.09.84A10.5 10.5 0 0 1 1.48 3.1a3.7 3.7 0 0 0 1.14 4.93 3.66 3.66 0 0 1-1.67-.46v.04c0 1.79 1.27 3.29 2.96 3.63-.31.08-.64.13-.98.13-.24 0-.47-.02-.7-.07.47 1.47 1.84 2.54 3.46 2.57a7.4 7.4 0 0 1-4.59 1.58c-.3 0-.59-.02-.88-.05A10.45 10.45 0 0 0 9.59 17c4.96 0 7.67-4.11 7.67-7.68 0-.12 0-.24-.01-.36.53-.38.98-.86 1.34-1.4z"/></svg>
+                                </button>
+                            </div>
+
+                            <p class="switch-auth">
+                                Don't have an account? 
+                                <a href="#" onclick="showRegister(); return false;">Register</a>
+                            </p>
                         </div>
 
-                        <div class="social-buttons">
-                            <button class="social-btn google" onclick="handleGoogleLogin()">
-                                <span>G</span>
-                            </button>
-                            <button class="social-btn facebook" onclick="handleFacebookLogin()">
-                                <span>f</span>
-                            </button>
-                            <button class="social-btn linkedin" onclick="handleLinkedinLogin()">
-                                <span>in</span>
-                            </button>
-                        </div>
+                        <!-- Register Form -->
+                        <div id="registerForm" class="form-box hidden">
+                            <div class="form-header">
+                                <h2>Create Account</h2>
+                                <p>Start your fitness transformation today</p>
+                            </div>
+                            
+                            <form id="registerFormElement" onsubmit="handleRegister(event)">
+                                <div class="input-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="registerName" placeholder="Enter your full name" required />
+                                </div>
+                                <div class="input-group">
+                                    <label>Email</label>
+                                    <input type="email" id="registerEmail" placeholder="Enter your email" required />
+                                </div>
+                                <div class="input-group">
+                                    <label>Password</label>
+                                    <input type="password" id="registerPassword" placeholder="Create a password (min 6 chars)" required minlength="6" />
+                                </div>
+                                <button type="submit" class="btn-primary" id="registerBtn">
+                                    <span>Create Account</span>
+                                </button>
+                            </form>
 
-                        <p class="switch-auth">
-                            Already have an account? 
-                            <a href="#" onclick="showLogin()">Login</a>
-                        </p>
+                            <div class="social-divider"><span>or register with</span></div>
+
+                            <div class="social-buttons">
+                                <button class="social-btn google" onclick="handleGoogleLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#EA4335" d="M18.64 10.18c0-.65-.06-1.28-.18-1.9H10v3.61h4.92a4.3 4.3 0 0 1-1.86 2.82v2.34h3.01c1.76-1.62 2.77-4.01 2.77-6.87z"/><path fill="#4285F4" d="M10 19c2.5 0 4.6-.83 6.13-2.25l-3.01-2.34c-.82.55-1.86.88-3.12.88-2.4 0-4.43-1.62-5.16-3.8H1.8v2.42A9.18 9.18 0 0 0 10 19z"/><path fill="#FBBC05" d="M4.84 11.49a5.52 5.52 0 0 1 0-3.48V5.59H1.8a9.19 9.19 0 0 0 0 8.33l3.04-2.43z"/><path fill="#34A853" d="M10 4.18c1.36 0 2.58.47 3.54 1.39l2.66-2.66A9.16 9.16 0 0 0 10 1C6.5 1 3.44 3.05 1.8 5.59l3.04 2.42c.73-2.18 2.76-3.83 5.16-3.83z"/></svg>
+                                </button>
+                                <button class="social-btn facebook" onclick="handleFacebookLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#1877F2" d="M18 10.05C18 5.6 14.42 2 10 2S2 5.6 2 10.05c0 3.98 2.9 7.28 6.7 7.88v-5.57H7.05v-2.31h1.65V8.55c0-1.64.96-2.54 2.44-2.54.7 0 1.44.13 1.44.13v1.6h-.8c-.8 0-1.05.5-1.05 1.02v1.22h1.79l-.29 2.31h-1.5V17.9c3.8-.6 6.7-3.9 6.7-7.88z"/></svg>
+                                </button>
+                                <button class="social-btn twitter" onclick="handleTwitterLogin()">
+                                    <svg viewBox="0 0 20 20"><path fill="#1DA1F2" d="M19.94 4.17a7.4 7.4 0 0 1-2.12.58 3.7 3.7 0 0 0 1.62-2.04 7.4 7.4 0 0 1-2.34.89A3.69 3.69 0 0 0 14.55 2c-2.04 0-3.7 1.66-3.7 3.7 0 .29.03.57.09.84A10.5 10.5 0 0 1 1.48 3.1a3.7 3.7 0 0 0 1.14 4.93 3.66 3.66 0 0 1-1.67-.46v.04c0 1.79 1.27 3.29 2.96 3.63-.31.08-.64.13-.98.13-.24 0-.47-.02-.7-.07.47 1.47 1.84 2.54 3.46 2.57a7.4 7.4 0 0 1-4.59 1.58c-.3 0-.59-.02-.88-.05A10.45 10.45 0 0 0 9.59 17c4.96 0 7.67-4.11 7.67-7.68 0-.12 0-.24-.01-.36.53-.38.98-.86 1.34-1.4z"/></svg>
+                                </button>
+                            </div>
+
+                            <p class="switch-auth">
+                                Already have an account? 
+                                <a href="#" onclick="showLogin(); return false;">Login</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,10 +138,9 @@
 
         <!-- ===== MAIN APP ===== -->
         <div id="mainScreen" class="screen hidden">
-            <!-- Header -->
             <header>
                 <div class="header-left">
-                    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+                    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
                     <div>
                         <span class="greeting">Hello, <span id="userName">User</span> 👋</span>
                         <span class="greeting-sub">Ready to crush your goals?</span>
@@ -126,134 +148,54 @@
                 </div>
                 <div class="header-right">
                     <span class="level-badge">Level <span id="userLevel">1</span></span>
-                    <div class="avatar" id="userAvatar" onclick="goToProfile()">
-                        <span>👤</span>
-                    </div>
+                    <div class="avatar" onclick="goToProfile()">👤</div>
                 </div>
             </header>
 
-            <!-- Bottom Navigation -->
             <nav class="bottom-nav">
-                <button class="nav-item active" data-tab="home">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-label">Home</span>
-                </button>
-                <button class="nav-item" data-tab="workouts">
-                    <span class="nav-icon">💪</span>
-                    <span class="nav-label">Workouts</span>
-                </button>
-                <button class="nav-item" data-tab="exercises">
-                    <span class="nav-icon">📋</span>
-                    <span class="nav-label">Exercises</span>
-                </button>
-                <button class="nav-item" data-tab="progress">
-                    <span class="nav-icon">📊</span>
-                    <span class="nav-label">Progress</span>
-                </button>
-                <button class="nav-item" data-tab="profile">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-label">Profile</span>
-                </button>
+                <button class="nav-item active" data-tab="home"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></button>
+                <button class="nav-item" data-tab="workouts"><span class="nav-icon">💪</span><span class="nav-label">Workouts</span></button>
+                <button class="nav-item" data-tab="exercises"><span class="nav-icon">📋</span><span class="nav-label">Exercises</span></button>
+                <button class="nav-item" data-tab="progress"><span class="nav-icon">📊</span><span class="nav-label">Progress</span></button>
+                <button class="nav-item" data-tab="profile"><span class="nav-icon">👤</span><span class="nav-label">Profile</span></button>
             </nav>
 
-            <!-- Content -->
             <div class="main-content">
                 <!-- HOME -->
                 <div id="tab-home" class="tab-panel active">
-                    <!-- Stats -->
                     <div class="stats-grid">
-                        <div class="stat-card">
-                            <span class="stat-icon">🔥</span>
-                            <span class="stat-value" id="statStreak">0</span>
-                            <span class="stat-label">Day Streak</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-icon">⭐</span>
-                            <span class="stat-value" id="statLevel">1</span>
-                            <span class="stat-label">Level</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-icon">⚡</span>
-                            <span class="stat-value" id="statXp">0</span>
-                            <span class="stat-label">XP</span>
-                        </div>
-                        <div class="stat-card">
-                            <span class="stat-icon">🏋️</span>
-                            <span class="stat-value" id="statWorkouts">0</span>
-                            <span class="stat-label">Workouts</span>
-                        </div>
+                        <div class="stat-card"><span class="stat-icon">🔥</span><span class="stat-value" id="statStreak">0</span><span class="stat-label">Day Streak</span></div>
+                        <div class="stat-card"><span class="stat-icon">⭐</span><span class="stat-value" id="statLevel">1</span><span class="stat-label">Level</span></div>
+                        <div class="stat-card"><span class="stat-icon">⚡</span><span class="stat-value" id="statXp">0</span><span class="stat-label">XP</span></div>
+                        <div class="stat-card"><span class="stat-icon">🏋️</span><span class="stat-value" id="statWorkouts">0</span><span class="stat-label">Workouts</span></div>
                     </div>
 
-                    <!-- Today's Workout -->
                     <div class="section">
-                        <div class="section-header">
-                            <h3>Today's Workout</h3>
-                            <button onclick="loadTodayWorkout()" class="btn-refresh">🔄</button>
-                        </div>
-                        <div id="todayWorkout" class="workout-card">
-                            <div class="workout-placeholder">
-                                <span>🏋️</span>
-                                <p>No workout scheduled today</p>
-                                <button onclick="loadTodayWorkout()" class="btn-small">Refresh</button>
-                            </div>
-                        </div>
+                        <div class="section-header"><h3>Today's Workout</h3><button onclick="loadTodayWorkout()" class="btn-refresh">🔄</button></div>
+                        <div id="todayWorkout" class="workout-card"><div class="workout-placeholder"><span>🏋️</span><p>No workout scheduled today</p><button onclick="loadTodayWorkout()" class="btn-small">Refresh</button></div></div>
                     </div>
 
-                    <!-- Quick Actions -->
                     <div class="section">
                         <h3>Quick Actions</h3>
                         <div class="actions-grid">
-                            <button class="action-btn" onclick="navigateTo('workouts')">
-                                <span>💪</span>
-                                <span>Start Workout</span>
-                            </button>
-                            <button class="action-btn" onclick="navigateTo('exercises')">
-                                <span>🔍</span>
-                                <span>Search Exercise</span>
-                            </button>
-                            <button class="action-btn" onclick="navigateTo('profile')">
-                                <span>📈</span>
-                                <span>View Progress</span>
-                            </button>
-                            <button class="action-btn" onclick="navigateTo('profile')">
-                                <span>⚙️</span>
-                                <span>Settings</span>
-                            </button>
+                            <button class="action-btn" onclick="navigateTo('workouts')"><span>💪</span><span>Start Workout</span></button>
+                            <button class="action-btn" onclick="navigateTo('exercises')"><span>🔍</span><span>Search Exercise</span></button>
+                            <button class="action-btn" onclick="navigateTo('progress')"><span>📈</span><span>View Progress</span></button>
+                            <button class="action-btn" onclick="navigateTo('profile')"><span>⚙️</span><span>Settings</span></button>
                         </div>
                     </div>
 
-                    <!-- Quote -->
-                    <div class="quote-box">
-                        <p>"The only bad workout is the one that didn't happen."</p>
-                    </div>
+                    <div class="quote-box"><p>"The only bad workout is the one that didn't happen."</p></div>
                 </div>
 
                 <!-- WORKOUTS -->
-                <div id="tab-workouts" class="tab-panel hidden">
-                    <div class="section">
-                        <h3>💪 Workout Programs</h3>
-                        <div id="workoutList" class="workout-list"></div>
-                    </div>
-                </div>
+                <div id="tab-workouts" class="tab-panel hidden"><div class="section"><h3>💪 Workout Programs</h3><div id="workoutList" class="workout-list"></div></div></div>
 
                 <!-- EXERCISES -->
-                <div id="tab-exercises" class="tab-panel hidden">
-                    <div class="section">
-                        <h3>📋 Exercise Library</h3>
-                        <div class="search-box">
-                            <input type="text" id="exerciseSearch" placeholder="Search exercises..." oninput="searchExercises()" />
-                        </div>
-                        <div id="exerciseList" class="exercise-list"></div>
-                    </div>
-                </div>
+                <div id="tab-exercises" class="tab-panel hidden"><div class="section"><h3>📋 Exercise Library</h3><div class="search-box"><input type="text" id="exerciseSearch" placeholder="Search exercises..." oninput="searchExercises()" /></div><div id="exerciseList" class="exercise-list"></div></div></div>
 
                 <!-- PROGRESS -->
-                <div id="tab-progress" class="tab-panel hidden">
-                    <div class="section">
-                        <h3>📊 Your Progress</h3>
-                        <div id="progressStats" class="progress-stats"></div>
-                    </div>
-                </div>
+                <div id="tab-progress" class="tab-panel hidden"><div class="section"><h3>📊 Your Progress</h3><div id="progressStats" class="progress-stats"></div></div></div>
 
                 <!-- PROFILE -->
                 <div id="tab-profile" class="tab-panel hidden">
@@ -263,18 +205,9 @@
                             <h3 id="profileName">User</h3>
                             <p id="profileEmail">user@email.com</p>
                             <div class="profile-stats">
-                                <div>
-                                    <span class="stat-value-sm" id="profileLevel">1</span>
-                                    <span class="stat-label-sm">Level</span>
-                                </div>
-                                <div>
-                                    <span class="stat-value-sm" id="profileStreak">0</span>
-                                    <span class="stat-label-sm">Streak</span>
-                                </div>
-                                <div>
-                                    <span class="stat-value-sm" id="profileXp">0</span>
-                                    <span class="stat-label-sm">XP</span>
-                                </div>
+                                <div><span class="stat-value-sm" id="profileLevel">1</span><span class="stat-label-sm">Level</span></div>
+                                <div><span class="stat-value-sm" id="profileStreak">0</span><span class="stat-label-sm">Streak</span></div>
+                                <div><span class="stat-value-sm" id="profileXp">0</span><span class="stat-label-sm">XP</span></div>
                             </div>
                             <button onclick="handleLogout()" class="btn-danger">Logout</button>
                         </div>
@@ -284,8 +217,9 @@
         </div>
     </div>
 
+    <!-- ===== JAVASCRIPT FILES ===== -->
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
 </body>
-                                </html>
+    </html>
